@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Ringcaptcha::VERSION
   spec.authors       = ["Paolo Dona"]
   spec.email         = ["paolo.dona@gmail.com"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
+  spec.description   = %q{Integration with ringcaptcha.com API}
+  spec.summary       = %q{Integration with ringcaptcha.com API}
   spec.homepage      = ""
   spec.license       = "MIT"
 
