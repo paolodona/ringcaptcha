@@ -8,23 +8,14 @@ require 'ostruct'
 # see https://bitbucket.org/ringcaptcha/ringcaptcha-docs/src/437ce808904ad6879c31399cfb8e3c8aee9d91d0/api/
 
 module Ringcaptcha
+  class << self
+    attr_accessor :app_key, :api_key, :secret_key
+  end
 
   # returns {status: "SUCCESS",phone: "+XXXXXXXXX",country: "XX",area: "XX",block: "XXXX",subscriber: "XXXX"}
   def self.normalize(phone)
     check_keys!
     return api('normalize', phone:phone)
-  end
-
-  def self.app_key=(_app_key)
-    @app_key = _app_key
-  end
-
-  def self.api_key=(_api_key)
-    @api_key = _api_key
-  end
-
-  def self.secret_key=(_secret_key)
-    @secret_key = _secret_key
   end
 
   def self.check_keys!
