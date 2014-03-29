@@ -1,12 +1,12 @@
-# Ringcaptcha
+# Ringcaptcha API
 
-Set up your Ringcaptcha keys:
+Set up your Ringcaptcha keys (eg in config/initializers/ringcaptcha.rb): 
 
     Ringcaptcha.app_key = '...'
     Ringcaptcha.api_key = '...'
     Ringcaptcha.secret_key = '...'
 
-Normalize Numbers & Info:
+## Normalize Numbers & Info:
 
    response = Ringcaptcha.normalize('353 083 148 0349')
 
