@@ -6,7 +6,17 @@ Set up your Ringcaptcha keys (eg in config/initializers/ringcaptcha.rb):
     Ringcaptcha.api_key = '...'
     Ringcaptcha.secret_key = '...'
 
-## Normalize Numbers & Info:
+## Installation
+
+Add this line to your application's Gemfile:
+
+    gem 'ringcaptcha', :git => 'https://github.com/paolodona/ringcaptcha.git'
+
+And then execute:
+
+    $ bundle
+
+## Usage: Normalize Numbers:
 
     response = Ringcaptcha.normalize('353 083 148 0349')
 
@@ -21,24 +31,6 @@ Set up your Ringcaptcha keys (eg in config/initializers/ringcaptcha.rb):
     response.subscriber #=> nil
     response.type       #=> "MOBILE"
     response.carrier    #=> "Vodafone"
-
-## Installation
-
-Add this line to your application's Gemfile:
-
-    gem 'ringcaptcha'
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install ringcaptcha
-
-## Usage
-
-TODO: Write usage instructions here
 
 ## Contributing
 
