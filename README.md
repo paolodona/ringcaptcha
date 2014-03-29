@@ -8,19 +8,19 @@ Set up your Ringcaptcha keys (eg in config/initializers/ringcaptcha.rb):
 
 ## Normalize Numbers & Info:
 
-   response = Ringcaptcha.normalize('353 083 148 0349')
+    response = Ringcaptcha.normalize('353 083 148 0349')
 
-   response #=> <Ringcaptcha::Response status="SUCCESS", phone="+353831480348", country="IE", area=nil, block=nil, subscriber=nil, type="MOBILE", carrier="Vodafone">
-   response.success?   #=> true
-   response.error?     #=> false
-   response.status     #=> "SUCCESS"
-   response.phone      #=> "+353831480349"
-   response.country    #=> "IE"
-   response.area       #=> nil
-   response.block      #=> nil
-   response.subscriber #=> nil
-   response.type       #=> "MOBILE"
-   response.carrier    #=> "Vodafone"
+    response #=> <Ringcaptcha::Response status="SUCCESS", phone="+353831480348", country="IE", area=nil, block=nil, subscriber=nil, type="MOBILE", carrier="Vodafone">
+    response.success?   #=> true
+    response.error?     #=> false
+    response.status     #=> "SUCCESS"
+    response.phone      #=> "+353831480349"
+    response.country    #=> "IE"
+    response.area       #=> nil
+    response.block      #=> nil
+    response.subscriber #=> nil
+    response.type       #=> "MOBILE"
+    response.carrier    #=> "Vodafone"
 
 ## Installation
 
