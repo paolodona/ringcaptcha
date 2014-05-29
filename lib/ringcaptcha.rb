@@ -18,6 +18,21 @@ module Ringcaptcha
     return api('normalize', phone:phone)
   end
 
+  def self.captcha(locale = 'en_us')
+    check_keys!
+    return api('captcha', locale: locale)
+  end
+
+  def self.code(token, phone, service = 'sms')
+    check_keys!
+    return api("code/#{service}", phone: phone, token: token)
+  end
+
+  def self.verify(token, code)
+    check_keys!
+    return api('verify', token: token, code: code)
+  end
+
   def self.check_keys!
     raise "please set Ringcaptcha.api_key and Ringcaptcha.app_key" if @app_key.blank? || @api_key.blank?
   end
