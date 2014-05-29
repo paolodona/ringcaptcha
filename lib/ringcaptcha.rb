@@ -1,6 +1,7 @@
 require "ringcaptcha/version"
 require 'json'
 require 'ostruct'
+require 'active_support/core_ext'
 
 #
 # Ringcaptcha API Integration
