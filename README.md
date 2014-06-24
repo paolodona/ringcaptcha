@@ -55,6 +55,20 @@ And then execute:
 
     response #=> #<Ringcaptcha::Response status="SUCCESS",id="2381555c031619e61b3f81af30445b27a87ae97a", phone="+353831480349", geolocation=1, phone_type="MOBILE", carrier="Vodafone", threat_level="LOW">
 
+## Sending different app_keys (Multiple apps account)
+
+If you have multiple application under the same account. You can specify the app_key directly when calling individual calls.
+
+	Ringcaptcha.api_key = '...'
+    Ringcaptcha.secret_key = '...'
+
+    my_app_key = "..."
+    response = Ringcaptcha.captcha(app_key: my_app_key)
+    Ringcaptcha.code(response.token, "+353831480349", app_key: my_app_key)
+
+    code = "1234"
+    Ringcaptcha.verify(response.token, code, app_key: my_app_key)
+
 ## Contributing
 
 1. Fork it
