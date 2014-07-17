@@ -18,17 +18,24 @@ module Ringcaptcha
   # returns {status: "SUCCESS",phone: "+XXXXXXXXX",country: "XX",area: "XX",block: "XXXX",subscriber: "XXXX"}
   def self.normalize(phone, app_key: @app_key)
     check_keys!(app_key: app_key)
-    return api('normalize', phone:phone)
+    return api('normalize', phone: phone)
   end
 
-  def self.captcha(locale = 'en_us', app_key: @app_key)
+  def self.captcha(locale: 'en_us', app_key: @app_key)
     check_keys!(app_key: app_key)
     return api(app_key, 'captcha', locale: locale)
   end
 
-  def self.code(token, phone, service = 'sms', app_key: @app_key)
+  def self.code(phone, token: nil, locale: 'en_us', service: 'sms', app_key: @app_key)
     check_keys!(app_key: app_key)
-    return api(app_key, "code/#{service}", phone: phone, token: token)
+
+    params = {
+      phone: phone,
+      token: token,
+      locale: locale
+    }.delete_if { |k, v| v.nil? }
+
+    return api(app_key, "code/#{service}", params)
   end
 
   def self.verify(token, code, app_key: @app_key)
