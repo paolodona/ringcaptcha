@@ -1,6 +1,9 @@
 require "ringcaptcha/version"
 require 'json'
 require 'ostruct'
+require 'active_support/core_ext'
+require 'uri'
+require 'net/http'
 
 #
 # Ringcaptcha API Integration
@@ -13,13 +16,35 @@ module Ringcaptcha
   end
 
   # returns {status: "SUCCESS",phone: "+XXXXXXXXX",country: "XX",area: "XX",block: "XXXX",subscriber: "XXXX"}
-  def self.normalize(phone)
-    check_keys!
-    return api('normalize', phone:phone)
+  def self.normalize(phone, app_key: @app_key)
+    check_keys!(app_key: app_key)
+    return api('normalize', phone: phone)
   end
 
-  def self.check_keys!
-    raise "please set Ringcaptcha.api_key and Ringcaptcha.app_key" if @app_key.blank? || @api_key.blank?
+  def self.captcha(locale: 'en_us', app_key: @app_key)
+    check_keys!(app_key: app_key)
+    return api(app_key, 'captcha', locale: locale)
+  end
+
+  def self.code(phone, token: nil, locale: 'en_us', service: 'sms', app_key: @app_key)
+    check_keys!(app_key: app_key)
+
+    params = {
+      phone: phone,
+      token: token,
+      locale: locale
+    }.delete_if { |k, v| v.nil? }
+
+    return api(app_key, "code/#{service}", params)
+  end
+
+  def self.verify(token, code, app_key: @app_key)
+    check_keys!(app_key: app_key)
+    return api(app_key, 'verify', token: token, code: code)
+  end
+
+  def self.check_keys!(app_key: @app_key)
+    raise "please set Ringcaptcha.api_key and Ringcaptcha.app_key" if app_key.blank? || @api_key.blank?
   end
 
   class Response < OpenStruct
@@ -34,12 +59,12 @@ module Ringcaptcha
 
   private
 
-  def self.api(path, params = {})
+  def self.api(app_key, path, params = {})
     uri = URI.parse("https://api.ringcaptcha.com")
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = true
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-    request = Net::HTTP::Post.new("/#{@app_key}/#{path}")
+    request = Net::HTTP::Post.new("/#{app_key}/#{path}")
     request.add_field('Content-Type', 'application/x-www-url-encoded')
     request.set_form_data params.merge!(api_key:@api_key)
 
@@ -47,5 +72,4 @@ module Ringcaptcha
     json = JSON.parse(response.body)
     return Response.new(json.symbolize_keys!)
   end
-
 end
