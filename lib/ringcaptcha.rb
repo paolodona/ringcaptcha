@@ -18,7 +18,7 @@ module Ringcaptcha
   # returns {status: "SUCCESS",phone: "+XXXXXXXXX",country: "XX",area: "XX",block: "XXXX",subscriber: "XXXX"}
   def self.normalize(phone, app_key: @app_key)
     check_keys!(app_key: app_key)
-    return api('normalize', phone: phone)
+    return api(app_key, 'normalize', phone: phone)
   end
 
   def self.captcha(locale: 'en_us', app_key: @app_key)
